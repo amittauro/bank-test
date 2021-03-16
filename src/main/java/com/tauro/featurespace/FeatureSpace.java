@@ -10,7 +10,9 @@ public class FeatureSpace {
         events = eventList;
     }
 
-    public String highestAverageTransactionAmount() {
-        return "hello";
+    public String customersHighestAverageTransactionAmount() {
+        JSONObject customer = events[0];
+        String customerName = customer.getString("customerId");
+        return customerName;
     }
 }
