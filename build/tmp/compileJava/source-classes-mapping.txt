@@ -1,2 +1,4 @@
 com/tauro/featurespace/FeatureSpace.java
  com.tauro.featurespace.FeatureSpace
+ com.tauro.featurespace.FeatureSpace$Customer
+ com.tauro.featurespace.FeatureSpace$CustomerTransactionComparator
