@@ -25,8 +25,7 @@ public class FeatureSpace {
         Person customer;
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader(
-                    file));
+            reader = new BufferedReader(new FileReader(file));
             String line = "reading file line by line";
             while (line != null) {
                 line = reader.readLine();

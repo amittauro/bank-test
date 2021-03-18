@@ -7,3 +7,5 @@ com/tauro/featurespace/People.java
  com.tauro.featurespace.People$PersonBalanceComparator
  com.tauro.featurespace.People$PersonTimeComparator
  com.tauro.featurespace.People$PersonTransactionComparator
+com/tauro/featurespace/FeatureSpaceReport.java
+ com.tauro.featurespace.FeatureSpaceReport
