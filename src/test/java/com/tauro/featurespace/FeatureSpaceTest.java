@@ -55,6 +55,14 @@ class FeatureSpaceTest {
         assertEquals("Cust2: 85\nCust1: 70", outputStreamCaptor.toString().trim());
     }
 
+    @Test
+    void testMerchantsShortestTimeBetweenTransactions() throws Exception {
+        FeatureSpace featureSpace = new FeatureSpace("src/main/resources/mockFileFive.json");
+        featureSpace.parseFile();
+        featureSpace.showMerchantsShortestTimeBetweenTransactions();
+        assertEquals("Merch2\nMerch1", outputStreamCaptor.toString().trim());
+    }
+
 
 
 }

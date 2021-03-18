@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -24,7 +23,6 @@ public class FeatureSpace {
         HashMap<String, Person> customersHash = new HashMap<String, Person>();
         HashMap<String, Person> merchantsHash = new HashMap<String, Person>();
         Person customer;
-        Person merchant;
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader(
@@ -36,10 +34,9 @@ public class FeatureSpace {
                 JSONObject event = new JSONObject(line);
                 customer = getPerson(getCustomerId(event), customersHash, "customer");
                 if (getEventType(event).equals("transaction")) {
-                    customer.addTransaction(getAmount(event));
-                    customer.updateBalance(getAmount(event), "transaction");
-                    merchant = getPerson(getMerchantId(event), merchantsHash, "merchant");
-                    merchant.addTransaction(getAmount(event));
+                    updateCustomerTransactionsAndBalance(customer, getAmount(event), getTransactionTime(event));
+                    updateMerchantTransactions(getMerchantId(event), merchantsHash,
+                            getAmount(event), getTransactionTime(event));
                 } else {
                     customer.updateBalance(getAmount(event), "deposit");
                 }
@@ -52,32 +49,39 @@ public class FeatureSpace {
         merchants = new People(createPeopleArray(merchantsHash), "merchants");
     }
 
-//    private void updateTransactionsAndBalance(String type, float amount, JSONObject event, HashMap<String, Person> personHash) {
-//        Person merchant;
-//        Person customer = getPerson(getCustomerId(event), customersHash, "customer");
-//        if (type.equals("transaction")) {
-//            customer.addTransaction(amount);
-//            customer.updateBalance(amount, "transaction");
-//            merchant = getPerson(getMerchantId(event), merchantsHash, "merchant");
-//            merchant.addTransaction(amount);
-//        } else {
-//            customer.updateBalance(amount, "deposit");
-//        }
-//    }
+    private void updateCustomerTransactionsAndBalance(Person customer, float amount, String time) {
+        customer.addTransaction(amount, time);
+        customer.updateBalance(amount, "transaction");
+    }
+
+    private void updateMerchantTransactions(String merchantId, HashMap<String, Person> merchantsHash,
+                                            float amount, String time) {
+        Person merchant = getPerson(merchantId, merchantsHash, "merchant");
+        merchant.addTransaction(amount, time);
+    }
+
+    public void showMerchantsShortestTimeBetweenTransactions() {
+        merchants.sortByTimeDiff();
+        merchants.printFirstFiveTimeDiff();
+    }
 
     public void showCustomersHighestAverageTransactions() {
         customers.sortByHighestAverageTransactions();
-        customers.printFirstFive("transactions");
+        customers.printFirstFiveTransactions();
     }
 
     public void showMerchantsHighestAverageTransactions() {
         merchants.sortByHighestAverageTransactions();
-        merchants.printFirstFive("transactions");
+        merchants.printFirstFiveTransactions();
     }
 
     public void showCustomersHighestRemainingBalance() {
         customers.sortByBalance();
-        customers.printFirstFive("balance");
+        customers.printFirstFiveBalances();
+    }
+
+    private String getTransactionTime(JSONObject event) {
+        return event.getString("time");
     }
 
     private String getCustomerId(JSONObject event) {

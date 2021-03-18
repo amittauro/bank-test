@@ -25,14 +25,30 @@ public class People {
         return people;
     }
 
-    public void printFirstFive(String type) {
+    public ArrayList<Person> sortByTimeDiff() {
+        PersonTimeComparator timeComparator = new PersonTimeComparator();
+        Collections.sort(people, timeComparator);
+        return people;
+    }
+
+    public void printFirstFiveTransactions() {
         int peopleSize = people.size() < 5 ? people.size() : 5;
         for (int i = 0; i < peopleSize; i++) {
-            if (type.equals("transactions")) {
-                System.out.println(people.get(i).getName() + ": " + Math.round(people.get(i).averageTransactionAmount()));
-            } else {
-                System.out.println(people.get(i).getName() + ": " + Math.round(people.get(i).showBalance()));
-            }
+            System.out.println(people.get(i).getName() + ": " + Math.round(people.get(i).averageTransactionAmount()));
+        }
+    }
+
+    public void printFirstFiveBalances() {
+        int peopleSize = people.size() < 5 ? people.size() : 5;
+        for (int i = 0; i < peopleSize; i++) {
+            System.out.println(people.get(i).getName() + ": " + Math.round(people.get(i).showBalance()));
+        }
+    }
+
+    public void printFirstFiveTimeDiff() {
+        int peopleSize = people.size() < 5 ? people.size() : 5;
+        for (int i = 0; i < peopleSize; i++) {
+            System.out.println(people.get(i).getName());
         }
     }
 
@@ -50,6 +66,15 @@ public class People {
         @Override
         public int compare(Person firstPerson, Person secondPerson) {
             return Float.compare(secondPerson.showBalance(), firstPerson.showBalance());
+        }
+
+    }
+
+    public class PersonTimeComparator implements Comparator<Person> {
+
+        @Override
+        public int compare(Person firstPerson, Person secondPerson) {
+            return Float.compare(firstPerson.getMinimumTime(), secondPerson.getMinimumTime());
         }
 
     }
