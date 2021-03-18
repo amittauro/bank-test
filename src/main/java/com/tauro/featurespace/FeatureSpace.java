@@ -24,6 +24,7 @@ public class FeatureSpace {
         HashMap<String, Person> customersHash = new HashMap<String, Person>();
         HashMap<String, Person> merchantsHash = new HashMap<String, Person>();
         Person customer;
+        Person merchant;
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader(
@@ -33,12 +34,15 @@ public class FeatureSpace {
                 line = reader.readLine();
                 if (line == null) { break; }
                 JSONObject event = new JSONObject(line);
+                customer = getPerson(getCustomerId(event), customersHash, "customer");
                 if (getEventType(event).equals("transaction")) {
-                    addTransaction(getMerchantId(event), getAmount(event), merchantsHash, "merchant");
+                    customer.addTransaction(getAmount(event));
+                    customer.updateBalance(getAmount(event), "transaction");
+                    merchant = getPerson(getMerchantId(event), merchantsHash, "merchant");
+                    merchant.addTransaction(getAmount(event));
+                } else {
+                    customer.updateBalance(getAmount(event), "deposit");
                 }
-                customer = addTransaction(getCustomerId(event), getAmount(event),
-                        customersHash, "customer");
-                customer.updateBalance(getAmount(event), getEventType(event));
             }
             reader.close();
         } catch (IOException e) {
@@ -47,6 +51,19 @@ public class FeatureSpace {
         customers = new People(createPeopleArray(customersHash), "customers");
         merchants = new People(createPeopleArray(merchantsHash), "merchants");
     }
+
+//    private void updateTransactionsAndBalance(String type, float amount, JSONObject event, HashMap<String, Person> personHash) {
+//        Person merchant;
+//        Person customer = getPerson(getCustomerId(event), customersHash, "customer");
+//        if (type.equals("transaction")) {
+//            customer.addTransaction(amount);
+//            customer.updateBalance(amount, "transaction");
+//            merchant = getPerson(getMerchantId(event), merchantsHash, "merchant");
+//            merchant.addTransaction(amount);
+//        } else {
+//            customer.updateBalance(amount, "deposit");
+//        }
+//    }
 
     public void showCustomersHighestAverageTransactions() {
         customers.sortByHighestAverageTransactions();
@@ -79,15 +96,11 @@ public class FeatureSpace {
         return event.getFloat("amount");
     }
 
-    private Person addTransaction(String personId, float amount,
-                                        HashMap<String, Person> personHash, String personType) {
+    private Person getPerson(String personId, HashMap<String, Person> personHash, String personType) {
         Person person = personHash.get(personId);
         if (person == null) {
             person = new Person(personId, personType);
             personHash.put(personId, person);
-            person.addTransaction(amount);
-        } else {
-            person.addTransaction(amount);
         }
         return person;
     }

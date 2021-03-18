@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.tauro.featurespace.FeatureSpaceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-03-18T17:00:00" hostname="Makerss-MacBook-Air.local" time="0.078">
+<testsuite name="com.tauro.featurespace.FeatureSpaceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-03-18T17:12:25" hostname="Makerss-MacBook-Air.local" time="0.09">
   <properties/>
-  <testcase name="testMerchantsHighestAverageTransactionAmountInOrder()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.056"/>
-  <testcase name="testCustomersHighestAverageTransactionAmount()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.005"/>
+  <testcase name="testMerchantsHighestAverageTransactionAmountInOrder()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.067"/>
+  <testcase name="testCustomersHighestAverageTransactionAmount()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.006"/>
   <testcase name="testCustomersHighestRemainingBalanceInOrder()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.005"/>
-  <testcase name="testCustomersHighestAverageTransactionAmountInOrder()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.004"/>
+  <testcase name="testCustomersHighestAverageTransactionAmountInOrder()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.005"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
