@@ -4,17 +4,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Comparator;
-import java.util.Collections;
 
+import java.lang.reflect.Array;
+import java.util.*;
 
 
 public class FeatureSpace {
 
     private String file;
-    private ArrayList<Customer> customers = new ArrayList<Customer>();
+    private HashMap<String, Customer> customersHash = new HashMap<String, Customer>();
 
     public FeatureSpace(String uploadedFile) {
 
@@ -50,91 +48,62 @@ public class FeatureSpace {
         try {
             reader = new BufferedReader(new FileReader(
                     file));
-            String line = reader.readLine();
-            JSONObject event = new JSONObject(line);
-            String customerId = event.getString("customerId");
-            String transactionId = event.getString("transactionId");
-            float amount = event.getFloat("amount");
-            addTransactionForCustomer(customerId, amount);
-//            System.out.print(customer);
+            String line = "reading file line by line";
             while (line != null) {
-//                System.out.println(line);
-                // read next line
                 line = reader.readLine();
-                if (line == null) {
-                    break;
-                }
-                event = new JSONObject(line);
-                customerId = event.getString("customerId");
-                transactionId = event.getString("transactionId");
-                amount = event.getFloat("amount");
-                addTransactionForCustomer(customerId, amount);
+                if (line == null) { break; }
+                JSONObject event = new JSONObject(line);
+                addTransactionForCustomer(getCustomerId(event), getAmount(event));
             }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        highestAverageTransactions();
+        sortCustomersHighestAverageTransactions();
     }
 
-    private boolean customerExists(String customerId) {
-        int arraySize = customers.size();
-        boolean result = false;
-        for (int i = 0; i < arraySize; i++) {
-            if (customers.get(i).id.equals(customerId)) {
-                result =  true;
-                break;
-            }
-        }
-        return result;
+    private String getCustomerId(JSONObject event) {
+        return event.getString("customerId");
     }
 
-    private Customer findCustomer(String customerId) {
-        int arraySize = customers.size();
-        int index = 0;
-        for (int i = 0; i < arraySize; i++) {
-            if (customers.get(i).id == customerId) {
-                return customers.get(i);
-            }
-        }
-        return new Customer("wrongId");
+    private float getAmount(JSONObject event) {
+        return event.getFloat("amount");
     }
 
     private void addTransactionForCustomer(String customerId, float amount) {
-        Customer customer;
-        if (customerExists(customerId) == true) {
-            customer = findCustomer(customerId);
+        Customer customer = customersHash.get(customerId);
+        if (customer == null) {
+            customer = new Customer(customerId);
+            customersHash.put(customerId, customer);
             customer.addTransaction(amount);
         } else {
-            customer = new Customer(customerId);
             customer.addTransaction(amount);
-            customers.add(customer);
         }
     }
 
-    private void highestAverageTransactions() {
+    private void sortCustomersHighestAverageTransactions() {
+        ArrayList<Customer> customers = createCustomersArray();
         CustomerTransactionComparator customerComparator = new CustomerTransactionComparator();
         Collections.sort(customers, customerComparator);
-        Collections.reverse(customers);
-        int customersSize;
-        if (customers.size() < 5) {
-            customersSize = customers.size();
-        } else {
-            customersSize = 5;
-        }
+        int customersSize = customers.size() < 5 ? customers.size() : 5;
         for (int i = 0; i < customersSize; i++) {
-            String customerId;
-            customerId = customers.get(i).id;
-            System.out.println(customerId);
+            System.out.println(customers.get(i).id);
         }
+    }
 
+    private ArrayList<Customer> createCustomersArray() {
+        ArrayList<Customer> customers = new ArrayList<Customer>();
+        for (Customer i : customersHash.values()) {
+            customers.add(i);
+        }
+        return customers;
     }
 
     public class CustomerTransactionComparator implements Comparator<Customer> {
 
         @Override
         public int compare(Customer firstCustomer, Customer secondCustomer) {
-            return Float.compare(firstCustomer.averageTransactionAmount(), secondCustomer.averageTransactionAmount());
+            return Float.compare(secondCustomer.averageTransactionAmount(), firstCustomer.averageTransactionAmount());
         }
 
     }
