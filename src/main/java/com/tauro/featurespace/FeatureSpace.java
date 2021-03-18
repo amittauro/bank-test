@@ -60,6 +60,17 @@ public class FeatureSpace {
         merchant.addTransaction(amount, time);
     }
 
+    public void createReport() {
+        System.out.println("Customers with highest average Transactions:");
+        showCustomersHighestAverageTransactions();
+        System.out.println("Merchants with highest average Transactions:");
+        showMerchantsHighestAverageTransactions();
+        System.out.println("Customers with greatest remaining balance:");
+        showCustomersHighestRemainingBalance();
+        System.out.println("Merchants with shortest time between N and N + 4 transaction:");
+        showMerchantsShortestTimeBetweenTransactions();
+    }
+
     public void showMerchantsShortestTimeBetweenTransactions() {
         merchants.sortByTimeDiff();
         merchants.printFirstFiveTimeDiff();

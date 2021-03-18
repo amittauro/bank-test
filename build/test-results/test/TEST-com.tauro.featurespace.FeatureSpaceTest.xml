@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.tauro.featurespace.FeatureSpaceTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-03-18T20:30:07" hostname="Makerss-MacBook-Air.local" time="0.077">
+<testsuite name="com.tauro.featurespace.FeatureSpaceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-03-18T21:09:05" hostname="Makerss-MacBook-Air.local" time="0.081">
   <properties/>
-  <testcase name="testMerchantsHighestAverageTransactionAmountInOrder()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.054"/>
+  <testcase name="testMerchantsHighestAverageTransactionAmountInOrder()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.045"/>
+  <testcase name="featureTest()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.014"/>
   <testcase name="testCustomersHighestAverageTransactionAmount()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.003"/>
-  <testcase name="testMerchantsShortestTimeBetweenTransactions()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.008"/>
-  <testcase name="testCustomersHighestRemainingBalanceInOrder()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.004"/>
-  <testcase name="testCustomersHighestAverageTransactionAmountInOrder()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.003"/>
+  <testcase name="testMerchantsShortestTimeBetweenTransactions()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.004"/>
+  <testcase name="testCustomersHighestRemainingBalanceInOrder()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.003"/>
+  <testcase name="testCustomersHighestAverageTransactionAmountInOrder()" classname="com.tauro.featurespace.FeatureSpaceTest" time="0.004"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
