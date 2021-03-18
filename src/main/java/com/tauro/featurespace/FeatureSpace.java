@@ -59,7 +59,8 @@ public class FeatureSpace {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        sortCustomersHighestAverageTransactions();
+        ArrayList<Customer> sortedCustomers = sortCustomersHighestAverageTransactions();
+        printFirstFive(sortedCustomers);
     }
 
     private String getCustomerId(JSONObject event) {
@@ -68,6 +69,13 @@ public class FeatureSpace {
 
     private float getAmount(JSONObject event) {
         return event.getFloat("amount");
+    }
+
+    private void printFirstFive(ArrayList<Customer> customers) {
+        int customersSize = customers.size() < 5 ? customers.size() : 5;
+        for (int i = 0; i < customersSize; i++) {
+            System.out.println(customers.get(i).id);
+        }
     }
 
     private void addTransactionForCustomer(String customerId, float amount) {
@@ -81,14 +89,11 @@ public class FeatureSpace {
         }
     }
 
-    private void sortCustomersHighestAverageTransactions() {
+    private ArrayList<Customer> sortCustomersHighestAverageTransactions() {
         ArrayList<Customer> customers = createCustomersArray();
         CustomerTransactionComparator customerComparator = new CustomerTransactionComparator();
         Collections.sort(customers, customerComparator);
-        int customersSize = customers.size() < 5 ? customers.size() : 5;
-        for (int i = 0; i < customersSize; i++) {
-            System.out.println(customers.get(i).id);
-        }
+        return customers;
     }
 
     private ArrayList<Customer> createCustomersArray() {
