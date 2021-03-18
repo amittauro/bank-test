@@ -12,20 +12,22 @@ import java.util.*;
 public class FeatureSpace {
 
     private String file;
-    private HashMap<String, Customer> customersHash = new HashMap<String, Customer>();
+    private HashMap<String, Person> customersHash = new HashMap<String, Person>();
 
     public FeatureSpace(String uploadedFile) {
 
         file = uploadedFile;
     }
 
-    static class Customer {
+    static class Person {
 
         private String id;
+        private String type;
         private ArrayList<Float> transactions = new ArrayList<Float>();
 
-        public Customer(String customerId) {
+        public Person(String customerId, String personType) {
             id = customerId;
+            type = personType;
         }
 
         private void addTransaction(float amount) {
@@ -53,17 +55,18 @@ public class FeatureSpace {
                 line = reader.readLine();
                 if (line == null) { break; }
                 JSONObject event = new JSONObject(line);
-                addTransactionForCustomer(getCustomerId(event), getAmount(event));
+                addPersonTransaction(getPersonId(event), getAmount(event));
+//                addMerchantTransaction(getMerchantId(event), getAmount(event));
             }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ArrayList<Customer> sortedCustomers = sortCustomersHighestAverageTransactions();
-        printFirstFive(sortedCustomers);
+        ArrayList<Person> sortedPersons = sortCustomersHighestAverageTransactions();
+        printFirstFive(sortedPersons);
     }
 
-    private String getCustomerId(JSONObject event) {
+    private String getPersonId(JSONObject event) {
         return event.getString("customerId");
     }
 
@@ -71,17 +74,17 @@ public class FeatureSpace {
         return event.getFloat("amount");
     }
 
-    private void printFirstFive(ArrayList<Customer> customers) {
+    private void printFirstFive(ArrayList<Person> customers) {
         int customersSize = customers.size() < 5 ? customers.size() : 5;
         for (int i = 0; i < customersSize; i++) {
             System.out.println(customers.get(i).id);
         }
     }
 
-    private void addTransactionForCustomer(String customerId, float amount) {
-        Customer customer = customersHash.get(customerId);
+    private void addPersonTransaction(String customerId, float amount) {
+        Person customer = customersHash.get(customerId);
         if (customer == null) {
-            customer = new Customer(customerId);
+            customer = new Person(customerId, "customer");
             customersHash.put(customerId, customer);
             customer.addTransaction(amount);
         } else {
@@ -89,26 +92,26 @@ public class FeatureSpace {
         }
     }
 
-    private ArrayList<Customer> sortCustomersHighestAverageTransactions() {
-        ArrayList<Customer> customers = createCustomersArray();
-        CustomerTransactionComparator customerComparator = new CustomerTransactionComparator();
-        Collections.sort(customers, customerComparator);
+    private ArrayList<Person> sortCustomersHighestAverageTransactions() {
+        ArrayList<Person> customers = createCustomersArray();
+        PersonTransactionComparator personComparator = new PersonTransactionComparator();
+        Collections.sort(customers, personComparator);
         return customers;
     }
 
-    private ArrayList<Customer> createCustomersArray() {
-        ArrayList<Customer> customers = new ArrayList<Customer>();
-        for (Customer i : customersHash.values()) {
+    private ArrayList<Person> createCustomersArray() {
+        ArrayList<Person> customers = new ArrayList<Person>();
+        for (Person i : customersHash.values()) {
             customers.add(i);
         }
         return customers;
     }
 
-    public class CustomerTransactionComparator implements Comparator<Customer> {
+    public class PersonTransactionComparator implements Comparator<Person> {
 
         @Override
-        public int compare(Customer firstCustomer, Customer secondCustomer) {
-            return Float.compare(secondCustomer.averageTransactionAmount(), firstCustomer.averageTransactionAmount());
+        public int compare(Person firstPerson, Person secondPerson) {
+            return Float.compare(secondPerson.averageTransactionAmount(), firstPerson.averageTransactionAmount());
         }
 
     }

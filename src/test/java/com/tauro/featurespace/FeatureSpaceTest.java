@@ -18,6 +18,10 @@ class FeatureSpaceTest {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
+    }
 
     @Test
     void testCustomersHighestAverageTransactionAmount() throws Exception {
@@ -33,8 +37,13 @@ class FeatureSpaceTest {
         assertEquals("Cust1\nCust2", outputStreamCaptor.toString().trim());
     }
 
-    @AfterEach
-    public void tearDown() {
-        System.setOut(standardOut);
+    @Test
+    void testMerchantsHighestAverageTransactionAmountInOrder() throws Exception {
+        FeatureSpace featureSpace = new FeatureSpace("src/main/resources/mockFileThree.json");
+        featureSpace.merchantsHighestAverageTransactionAmount();
+        assertEquals("Merch1\nMerch1", outputStreamCaptor.toString().trim());
     }
+
+
+
 }
