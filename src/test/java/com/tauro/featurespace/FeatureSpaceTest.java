@@ -26,22 +26,33 @@ class FeatureSpaceTest {
     @Test
     void testCustomersHighestAverageTransactionAmount() throws Exception {
         FeatureSpace featureSpace = new FeatureSpace("src/main/resources/mockFile.json");
-        featureSpace.customersHighestAverageTransactionAmount();
-        assertEquals("Cust1", outputStreamCaptor.toString().trim());
+        featureSpace.parseFile();
+        featureSpace.showCustomersHighestAverageTransactions();
+        assertEquals("Cust1: 10", outputStreamCaptor.toString().trim());
     }
 
     @Test
     void testCustomersHighestAverageTransactionAmountInOrder() throws Exception {
         FeatureSpace featureSpace = new FeatureSpace("src/main/resources/mockFileTwo.json");
-        featureSpace.customersHighestAverageTransactionAmount();
-        assertEquals("Cust1\nCust2", outputStreamCaptor.toString().trim());
+        featureSpace.parseFile();
+        featureSpace.showCustomersHighestAverageTransactions();
+        assertEquals("Cust1: 100\nCust2: 60", outputStreamCaptor.toString().trim());
     }
 
     @Test
     void testMerchantsHighestAverageTransactionAmountInOrder() throws Exception {
         FeatureSpace featureSpace = new FeatureSpace("src/main/resources/mockFileThree.json");
-        featureSpace.merchantsHighestAverageTransactionAmount();
-        assertEquals("Merch1\nMerch1", outputStreamCaptor.toString().trim());
+        featureSpace.parseFile();
+        featureSpace.showMerchantsHighestAverageTransactions();
+        assertEquals("Merch2: 90\nMerch1: 46", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testCustomersHighestRemainingBalanceInOrder() throws Exception {
+        FeatureSpace featureSpace = new FeatureSpace("src/main/resources/mockFileFour.json");
+        featureSpace.parseFile();
+        featureSpace.showCustomersHighestRemainingBalance();
+        assertEquals("Cust2: 85\nCust1: 70", outputStreamCaptor.toString().trim());
     }
 
 

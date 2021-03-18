@@ -1,4 +1,8 @@
+com/tauro/featurespace/Person.java
+ com.tauro.featurespace.Person
+com/tauro/featurespace/People.java
+ com.tauro.featurespace.People
+ com.tauro.featurespace.People$PersonBalanceComparator
+ com.tauro.featurespace.People$PersonTransactionComparator
 com/tauro/featurespace/FeatureSpace.java
  com.tauro.featurespace.FeatureSpace
- com.tauro.featurespace.FeatureSpace$Person
- com.tauro.featurespace.FeatureSpace$PersonTransactionComparator
