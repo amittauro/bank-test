@@ -8,6 +8,7 @@ This is a console app that parses a JSON file and provides a report of the data.
 cd feature-space
 gradle build
 gradle run
+gradle tasks
 ```
 
 ## Testing
