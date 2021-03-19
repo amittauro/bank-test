@@ -5,7 +5,7 @@ This is a console app that parses a JSON file and provides a report of the data.
 ## Get Started
 
 ```sh
-cd FeatureSpace
+cd feature-space
 gradle build
 gradle run
 ```
