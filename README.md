@@ -14,6 +14,8 @@ gradle run
 To run tests:
 ```sh
 gradle test
+cd build/reports/tests/test
+open index.html
 ```
 
 ## Tech used
