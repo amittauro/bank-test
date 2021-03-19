@@ -79,7 +79,6 @@ public class FeatureSpace {
     }
 
     public void showMerchantsHighestAverageTransactions() {
-        merchants.sortByHighestAverageTransactions();
         merchants.printFirstFiveTransactions();
     }
 

@@ -13,34 +13,10 @@ public class People {
         type = peopleType;
     }
 
-    public ArrayList<Person> sortByHighestAverageTransactions() {
-        ArrayList<Person> peopleWithTransactions = new ArrayList<Person>();
-        for (Person person : people) {
-            if (person.madeTransaction()) {
-                peopleWithTransactions.add(person);
-            }
-        }
-        PersonTransactionComparator transactionComparator = new PersonTransactionComparator();
-        Collections.sort(peopleWithTransactions, transactionComparator);
-        return peopleWithTransactions;
-    }
-
     public ArrayList<Person> sortByBalance() {
         PersonBalanceComparator balanceComparator = new PersonBalanceComparator();
         Collections.sort(people, balanceComparator);
         return people;
-    }
-
-    public ArrayList<Person> sortByTimeDiff() {
-        ArrayList<Person> peopleWithTimeDiff = new ArrayList<Person>();
-        for (Person person : people) {
-            if (person.minimumTimeExists()) {
-                peopleWithTimeDiff.add(person);
-            }
-        }
-        PersonTimeComparator timeComparator = new PersonTimeComparator();
-        Collections.sort(peopleWithTimeDiff, timeComparator);
-        return peopleWithTimeDiff;
     }
 
     public void printFirstFiveTransactions() {
@@ -66,7 +42,31 @@ public class People {
         }
     }
 
-    public class PersonTransactionComparator implements Comparator<Person> {
+    private ArrayList<Person> sortByHighestAverageTransactions() {
+        ArrayList<Person> peopleWithTransactions = new ArrayList<Person>();
+        for (Person person : people) {
+            if (person.madeTransaction()) {
+                peopleWithTransactions.add(person);
+            }
+        }
+        PersonTransactionComparator transactionComparator = new PersonTransactionComparator();
+        Collections.sort(peopleWithTransactions, transactionComparator);
+        return peopleWithTransactions;
+    }
+
+    private ArrayList<Person> sortByTimeDiff() {
+        ArrayList<Person> peopleWithTimeDiff = new ArrayList<Person>();
+        for (Person person : people) {
+            if (person.minimumTimeExists()) {
+                peopleWithTimeDiff.add(person);
+            }
+        }
+        PersonTimeComparator timeComparator = new PersonTimeComparator();
+        Collections.sort(peopleWithTimeDiff, timeComparator);
+        return peopleWithTimeDiff;
+    }
+
+    static class PersonTransactionComparator implements Comparator<Person> {
 
         @Override
         public int compare(Person firstPerson, Person secondPerson) {
@@ -75,7 +75,7 @@ public class People {
 
     }
 
-    public class PersonBalanceComparator implements Comparator<Person> {
+    static class PersonBalanceComparator implements Comparator<Person> {
 
         @Override
         public int compare(Person firstPerson, Person secondPerson) {
@@ -84,7 +84,7 @@ public class People {
 
     }
 
-    public class PersonTimeComparator implements Comparator<Person> {
+    static class PersonTimeComparator implements Comparator<Person> {
 
         @Override
         public int compare(Person firstPerson, Person secondPerson) {
