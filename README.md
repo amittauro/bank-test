@@ -5,6 +5,7 @@ This is a console app that parses a JSON file and provides a report of the data.
 ## Get Started
 
 ```sh
+cd FeatureSpace
 gradle build
 gradle run
 ```
@@ -14,8 +15,7 @@ gradle run
 To run tests:
 ```sh
 gradle test
-cd build/reports/tests/test
-open index.html
+open build/reports/tests/test/index.html
 ```
 
 ## Tech used
