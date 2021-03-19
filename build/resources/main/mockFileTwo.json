@@ -1,5 +1,0 @@
-{ "eventType" : "transaction","transactionId" : "1", "customerId" : "Cust1", "merchantId" : "Merch1", "time" : "2021-01-01T10:00:00Z", "amount" : 100 }
-{ "eventType" : "transaction","transactionId" : "2", "customerId" : "Cust2", "merchantId" : "Merch1", "time" : "2021-01-02T11:00:00Z", "amount" : 60 }
-{ "eventType" : "transaction","transactionId" : "3", "customerId" : "Cust2", "merchantId" : "Merch1", "time" : "2021-01-03T12:00:00Z", "amount" : 60 }
-{ "eventType" : "transaction","transactionId" : "4", "customerId" : "Cust2", "merchantId" : "Merch1", "time" : "2021-01-04T13:00:00Z", "amount" : 60 }
-{ "eventType" : "transaction","transactionId" : "5", "customerId" : "Cust2", "merchantId" : "Merch1", "time" : "2021-02-05T15:00:00Z", "amount" : 60 }
