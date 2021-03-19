@@ -72,4 +72,13 @@ public class Person {
         return min;
     }
 
+    public boolean minimumTimeExists() {
+        ArrayList<Long> timeDifferences = getTimesBetweenFiveTransactions();
+        return timeDifferences.size() != 0;
+    }
+
+    public boolean madeTransaction() {
+        return transactions.size() != 0;
+    }
+
 }

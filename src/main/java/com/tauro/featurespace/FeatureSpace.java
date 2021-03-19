@@ -71,12 +71,10 @@ public class FeatureSpace {
     }
 
     public void showMerchantsShortestTimeBetweenTransactions() {
-        merchants.sortByTimeDiff();
         merchants.printFirstFiveTimeDiff();
     }
 
     public void showCustomersHighestAverageTransactions() {
-        customers.sortByHighestAverageTransactions();
         customers.printFirstFiveTransactions();
     }
 

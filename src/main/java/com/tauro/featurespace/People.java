@@ -14,9 +14,15 @@ public class People {
     }
 
     public ArrayList<Person> sortByHighestAverageTransactions() {
+        ArrayList<Person> peopleWithTransactions = new ArrayList<Person>();
+        for (Person person : people) {
+            if (person.madeTransaction()) {
+                peopleWithTransactions.add(person);
+            }
+        }
         PersonTransactionComparator transactionComparator = new PersonTransactionComparator();
-        Collections.sort(people, transactionComparator);
-        return people;
+        Collections.sort(peopleWithTransactions, transactionComparator);
+        return peopleWithTransactions;
     }
 
     public ArrayList<Person> sortByBalance() {
@@ -26,15 +32,22 @@ public class People {
     }
 
     public ArrayList<Person> sortByTimeDiff() {
+        ArrayList<Person> peopleWithTimeDiff = new ArrayList<Person>();
+        for (Person person : people) {
+            if (person.minimumTimeExists()) {
+                peopleWithTimeDiff.add(person);
+            }
+        }
         PersonTimeComparator timeComparator = new PersonTimeComparator();
-        Collections.sort(people, timeComparator);
-        return people;
+        Collections.sort(peopleWithTimeDiff, timeComparator);
+        return peopleWithTimeDiff;
     }
 
     public void printFirstFiveTransactions() {
-        int peopleSize = people.size() < 5 ? people.size() : 5;
+        ArrayList<Person> peopleWithTransactions = sortByHighestAverageTransactions();
+        int peopleSize = peopleWithTransactions.size() < 5 ? peopleWithTransactions.size() : 5;
         for (int i = 0; i < peopleSize; i++) {
-            System.out.println(people.get(i).getName() + ": " + Math.round(people.get(i).averageTransactionAmount()));
+            System.out.println(peopleWithTransactions.get(i).getName() + ": " + Math.round(peopleWithTransactions.get(i).averageTransactionAmount()));
         }
     }
 
@@ -46,9 +59,10 @@ public class People {
     }
 
     public void printFirstFiveTimeDiff() {
-        int peopleSize = people.size() < 5 ? people.size() : 5;
+        ArrayList<Person> peopleWithTimeDiff = sortByTimeDiff();
+        int peopleSize = peopleWithTimeDiff.size() < 5 ? peopleWithTimeDiff.size() : 5;
         for (int i = 0; i < peopleSize; i++) {
-            System.out.println(people.get(i).getName());
+            System.out.println(peopleWithTimeDiff.get(i).getName());
         }
     }
 
