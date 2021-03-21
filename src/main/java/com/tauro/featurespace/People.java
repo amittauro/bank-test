@@ -38,7 +38,8 @@ public class People {
         ArrayList<Person> peopleWithTimeDiff = sortByTimeDiff();
         int peopleSize = peopleWithTimeDiff.size() < 5 ? peopleWithTimeDiff.size() : 5;
         for (int i = 0; i < peopleSize; i++) {
-            System.out.println(peopleWithTimeDiff.get(i).getName());
+            int timeDiffDays = Math.round(peopleWithTimeDiff.get(i).getMinimumTime() / 86400);
+            System.out.println(peopleWithTimeDiff.get(i).getName() + ": " + timeDiffDays + " days");
         }
     }
 

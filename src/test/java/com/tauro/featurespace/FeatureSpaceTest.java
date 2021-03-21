@@ -60,7 +60,7 @@ class FeatureSpaceTest {
         FeatureSpace featureSpace = new FeatureSpace("src/test/resources/mockFileFive.json");
         featureSpace.parseFile();
         featureSpace.showMerchantsShortestTimeBetweenTransactions();
-        assertEquals("Merch2\nMerch1", outputStreamCaptor.toString().trim());
+        assertEquals("Merch2: 3 days\nMerch1: 4 days", outputStreamCaptor.toString().trim());
     }
 
     @Test
@@ -71,7 +71,7 @@ class FeatureSpaceTest {
         String result1 = "Customers with highest average Transactions:\nCust5: 200\nCust4: 73\nCust3: 30\nCust6: 25\nCust2: 20\n";
         String result2 = "Merchants with highest average Transactions:\nMerch2: 80\nMerch1: 30\n";
         String result3 = "Customers with greatest remaining balance:\nCust2: 330\nCust6: 140\nCust1: 70\nCust3: 0\nCust5: -180\n";
-        String result4 = "Merchants with shortest time between N and N + 4 transaction:\nMerch1\nMerch2";
+        String result4 = "Merchants with shortest time between N and N + 4 transaction:\nMerch2: 2 days\nMerch1: 4 days";
         String result = result1 + result2 + result3 + result4;
         assertEquals(result, outputStreamCaptor.toString().trim());
     }
@@ -81,7 +81,7 @@ class FeatureSpaceTest {
         FeatureSpace featureSpace = new FeatureSpace("src/test/resources/mockFileSeven.json");
         featureSpace.parseFile();
         featureSpace.showMerchantsShortestTimeBetweenTransactions();
-        assertEquals("Merch1", outputStreamCaptor.toString().trim());
+        assertEquals("Merch1: 4 days", outputStreamCaptor.toString().trim());
     }
 
     @Test
